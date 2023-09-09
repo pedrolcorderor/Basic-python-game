@@ -1,63 +1,52 @@
 import random
 
-options =('piedra','papel','tijera','lagarto','spock')
-computer_wins=0
-user_wins=0
 
-rounds=1
+def choose_options():
+    options = ('piedra', 'papel', 'tijera', 'lagarto', 'spock')
+    user_option = input('piedra, papel tijera lagarto o spock =>')
+    user_option = user_option.lower()
 
-while True:
-    print('*'*10)
-    print('ROUND',rounds)
-    print('*'*10,"\n")
-    
-    print('computer_wins',computer_wins)
-    print('user_wins',user_wins ,"\n")
-    
-    user_option=input('piedra, papel tijera lagarto o spock =>' )
-    user_option=user_option.lower()
-    
-    rounds+= 1
-    
     if not user_option in options:
         print('esa opcion no es valida')
-        continue
-    
-    computer_option=random.choice(options)
-    
+        # continue
+        return None, None
+
+    computer_option = random.choice(options)
+
     print('User option =>', user_option)
     print('Computer option =>', computer_option)
-    
+    return user_option, computer_option
+
+
+def check_rules(user_option, computer_option, user_wins, computer_wins):
     if user_option == computer_option:
         print("Empate")
-        
-    elif user_option=="piedra":
+    elif user_option == "piedra":
         if computer_option == 'tijera':
             print('piedra gana a tijera')
             print('user gano!')
             user_wins += 1
-        elif computer_option== "lagarto":
+        elif computer_option == "lagarto":
             print('piedra aplasta Lagarto')
             print('user gano!')
             user_wins += 1
-        elif computer_option== "spock":
+        elif computer_option == "spock":
             print("spock vaporiza piedra")
             print("computer gano!")
-            computer_wins +=1
+            computer_wins += 1
         else:
             print('Papel gana a piedra')
             print('computer gano!')
             computer_wins += 1
-            
     elif user_option == 'papel':
         if computer_option == 'piedra':
             print('papel gana a piedra')
             print('user gano')
             user_wins += 1
-        elif computer_option== "spock":
+        elif computer_option == "spock":
             print("Papel desautoriza a spock")
             print("User gana!")
-            user_wins +=1
+            user_wins += 1
         elif computer_option == "lagarto":
             print('Lagarto devora papel')
             print('computer gano!')
@@ -66,16 +55,15 @@ while True:
             print('tijera gana a papel')
             print('computer gano!')
             computer_wins += 1
-            
     elif user_option == 'tijera':
         if computer_option == 'papel':
             print('tijera gana a papel')
             print('user gano!')
             user_wins += 1
-        elif computer_option =="lagarto":
+        elif computer_option == "lagarto":
             print("tijera decapita a lagarta")
             print("User gana!")
-            user_wins +=1
+            user_wins += 1
         elif computer_option == "spock":
             print("Spock rompe tijera")
             print("computer Gana!")
@@ -84,12 +72,11 @@ while True:
             print('piedra gana a tijera')
             print('computer gano!')
             computer_wins += 1
-    
     elif user_option == "lagarto":
         if computer_option == "spock":
             print("Lagarto envenena a spock")
             print("User gana!")
-            user_wins+=1
+            user_wins += 1
         elif computer_option == "papel":
             print("Lagarto devora papel")
             print("User gana!")
@@ -97,32 +84,57 @@ while True:
         elif computer_option == "piedra":
             print("Piedra aplasta lagarto")
             print("computer gana!")
-            computer_wins+=1    
-        else :
+            computer_wins += 1
+        else:
             print("Tijera decapita a Largarto")
             print("Computer gana!")
-            computer_wins +=1
-    elif user_option =="spock":
-        if computer_option== "tijera":
+            computer_wins += 1
+    elif user_option == "spock":
+        if computer_option == "tijera":
             print("Spock rompe tijera ")
             print("User gana")
-            user_wins+=1
-        elif computer_option== "piedra ":
+            user_wins += 1
+        elif computer_option == "piedra ":
             print("Spock evaporiza Piedra")
             print("GANA USER")
-            user_wins +=1
+            user_wins += 1
         elif computer_option == "lagarto":
             print("Lagarto envenena a spock")
             print("Computer gana!")
-            computer_wins+=1
+            computer_wins += 1
         else:
             print("Papel desautoriza a Spock")
             print("Gana Spock")
-            computer_wins+=1
+            computer_wins += 1
+    return user_wins , computer_wins
+
+def check_wins(user_wins, computer_wins):
     if computer_wins == 2:
         print('El ganador es la computadora')
-        break
-
+        exit()
+    
     if user_wins == 2:
         print('El ganador es el usuario')
-        break
+        exit()
+
+
+def run_game():
+    computer_wins = 0
+    user_wins = 0
+    rounds = 1
+    while True:
+        print('*' * 10)
+        print('ROUND', rounds)
+        print('*' * 10)
+
+        print('computer_wins', computer_wins)
+        print('user_wins', user_wins)
+        rounds += 1
+
+        user_option, computer_option = choose_options()
+        user_wins, computer_wins = check_rules(user_option, computer_option, user_wins, computer_wins)
+
+        check_wins(user_wins, computer_wins)
+
+
+run_game()

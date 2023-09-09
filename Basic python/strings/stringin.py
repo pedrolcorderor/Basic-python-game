@@ -30,3 +30,4 @@ print(text_2.capitalize())
 print(text_2.title())
 print(text_2.isdigit())
 print("398".isdigit())
+8000 >39
